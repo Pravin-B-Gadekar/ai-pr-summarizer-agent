@@ -209,7 +209,7 @@ Provide your review in the following XML format:
         suggestions_str = "\n".join(suggestions_list)
 
         # Format the review as markdown
-        final_review_body = f"""# Pull Request Review
+        final_review_body = f"""# AI Code Review
 
     {analysis['summary']}
 
