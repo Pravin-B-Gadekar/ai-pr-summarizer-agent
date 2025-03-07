@@ -301,11 +301,18 @@ def webhook():
 
         # Handle pull request events
         if event_type == "pull_request" and payload.get("action") == "opened":
-            # Handle the PR event in a non-blocking way
-            # In production, you might want to use a background task queue like Celery
-            pr_bot.handle_pull_request_opened(payload)
+            # Return a 200 response immediately
+            print(f"Received PR opened event, starting processing in background")
 
-        return jsonify({"status": "OK"}), 200
+            # Start processing in a separate thread to avoid blocking the response
+            import threading
+            thread = threading.Thread(target=pr_bot.handle_pull_request_opened, args=(payload,))
+            thread.daemon = True  # Allow the thread to be terminated when the main program exits
+            thread.start()
+
+            return jsonify({"status": "Processing started"}), 200
+
+        return jsonify({"status": "Event received"}), 200
     except Exception as e:
         print(f"Error processing webhook: {e}")
         return jsonify({"error": str(e)}), 500
