@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pr-review-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --worker-class=gthread --workers=1 --threads=8 --timeout=0 'app:app'
+    envVars:
+      - key: GITHUB_APP_ID
+        sync: false
+      - key: GITHUB_PRIVATE_KEY
+        sync: false
+      - key: GITHUB_INSTALLATION_ID
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
