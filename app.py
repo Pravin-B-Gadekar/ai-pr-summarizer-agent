@@ -143,7 +143,7 @@ Current Content:
         changed_files_str = "\n---\n".join(changed_files_list)
 
         # Build prompt for the AI
-        prompt = f"""You are an expert code reviewer. Analyze these pull request changes and provide detailed feedback.
+        prompt = f"""You are an expert Python code reviewer. Analyze these pull request changes and provide detailed feedback.
 Write your analysis in clear, concise paragraphs. Do not use code blocks for regular text.
 Format suggestions as single-line bullet points.
 
